@@ -3,7 +3,7 @@ import os
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import DEVICE_DEFAULT_NAME
 
-platformVersion = "0.0.1"
+platformVersion = "0.0.2"
 
 # pylint: disable=unused-argument
 def setup_platform(hass, config, add_devices_callback, discovery_info=None):
@@ -45,12 +45,15 @@ class IkonkeOutletBase(SwitchDevice):
         self._name = name or DEVICE_DEFAULT_NAME
         self._icon = icon
         self._state = False
+        self._available = False
         
         self.ikonkeIO = ikonkeIO
         self.type = type
         self.ip = ip
         self.mac = mac
         self.passwd = passwd
+        
+        self.update()
     
     @property
     def name(self):
@@ -61,20 +64,27 @@ class IkonkeOutletBase(SwitchDevice):
         return self._icon
     
     @property
+    def available(self) -> bool:
+        return self._available
+    
+    @property
     def should_poll(self):
         return True
     
-    @property
-    def is_on(self):
+    def update(self):
         command = 'sh ' + self.ikonkeIO + ' -C ' + self.type + ' ' + self.ip + ' ' + self.mac + ' ' + self.passwd + ' getRelay'
         result = os.popen(command).read().strip('\n')
         if result == 'open':
             self._state = True
+            self._available = True
         elif result == 'close':
             self._state = False
+            self._available = True
         else:
-            self._state = False
-        
+            self._available = False
+    
+    @property
+    def is_on(self):
         return self._state
     
     def turn_on(self, **kwargs):
