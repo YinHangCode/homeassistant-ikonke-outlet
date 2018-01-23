@@ -71,7 +71,7 @@ class IkonkeOutletBase(SwitchDevice):
         return True
     
     def update(self):
-        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" "{password}" getRelay'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
+        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" \'{password}\' getRelay'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
         result = os.popen(command).read().strip('\n')
         if result == 'open':
             self._state = True
@@ -87,7 +87,7 @@ class IkonkeOutletBase(SwitchDevice):
         return self._state
     
     def turn_on(self, **kwargs):
-        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" "{password}" setRelay open'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
+        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" \'{password}\' setRelay open'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
         result = os.popen(command).read().strip('\n')
         if result == 'success':
             self._state = True
@@ -96,7 +96,7 @@ class IkonkeOutletBase(SwitchDevice):
             pass
     
     def turn_off(self, **kwargs):
-        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" "{password}" setRelay close'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
+        command = 'sh "{ikonkeio}" -C "{type}" "{ip}" "{mac}" \'{password}\' setRelay close'.format(ikonkeio=self.ikonkeIO, type=self.type, ip=self.ip, mac=self.mac, password=self.passwd)
         result = os.popen(command).read().strip('\n')
         if result == 'success':
             self._state = False
