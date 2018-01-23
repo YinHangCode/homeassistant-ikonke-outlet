@@ -7,11 +7,13 @@ HomeAssistant的控客插座插件。
 ![](https://raw.githubusercontent.com/YinHangCode/homeassistant-ikonke-outlet/master/images/K2.jpg)
 ![](https://raw.githubusercontent.com/YinHangCode/homeassistant-ikonke-outlet/master/images/K2Pro.jpg)
 ![](https://raw.githubusercontent.com/YinHangCode/homeassistant-ikonke-outlet/master/images/MiniB.jpg)
+![](https://raw.githubusercontent.com/YinHangCode/homeassistant-ikonke-outlet/master/images/MiniW.jpg)
 
 ## 支持的设备
 1.K2   
 2.K2 Pro   
 3.K Mini Pro   
+4.K Mini   
 
 ## 安装说明
 1.安装HomeAssistant。   
