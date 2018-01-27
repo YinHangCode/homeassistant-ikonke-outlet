@@ -3,15 +3,17 @@ import os
 from homeassistant.components.switch import SwitchDevice
 from homeassistant.const import DEVICE_DEFAULT_NAME
 
-platformVersion = "0.0.2"
+platformVersion = "0.0.4"
 
 def setup_platform(hass, config, add_devices_callback, discovery_info=None):
-    print("[IkonkeOutletPlatform][INFO]*********************************************************************")
-    print("[IkonkeOutletPlatform][INFO]                IkonkeOutletPlatform v%s By YinHang"%(platformVersion))
-    print("[IkonkeOutletPlatform][INFO]  GitHub: https://github.com/YinHangCode/homeassistant_ikonke_outlet ")
-    print("[IkonkeOutletPlatform][INFO]                                                 QQ Group: 107927710 ")
-    print("[IkonkeOutletPlatform][INFO]*********************************************************************")
-    print("[IkonkeOutletPlatform][INFO]start success...")
+    print(\
+        "[IkonkeOutletPlatform][INFO]********************************************************************\r\n"\
+        "[IkonkeOutletPlatform][INFO]            IkonkeOutletPlatform v%s By YinHang \r\n"\
+        "[IkonkeOutletPlatform][INFO] GitHub: https://github.com/YinHangCode/homeassistant-ikonke-outlet \r\n"\
+        "[IkonkeOutletPlatform][INFO]                                                QQ Group: 107927710 \r\n"\
+        "[IkonkeOutletPlatform][INFO]********************************************************************\r\n"\
+        "[IkonkeOutletPlatform][INFO]start success...\r\n"\
+    %(platformVersion))
     
     addDeviceArr = []
     
@@ -28,6 +30,9 @@ def setup_platform(hass, config, add_devices_callback, discovery_info=None):
         elif type == "mini_b":
             addDeviceArr.append(\
                 MiniBOutlet("mini_b_" + deviceCfg.get("mac").replace('-',''), 'mdi:power-socket', ikonkeIO, deviceCfg.get("type"), deviceCfg.get("ip"), deviceCfg.get("mac"), deviceCfg.get("password")))
+        elif type == "mini_w":
+            addDeviceArr.append(\
+                MiniWOutlet("mini_w_" + deviceCfg.get("mac").replace('-',''), 'mdi:power-socket', ikonkeIO, deviceCfg.get("type"), deviceCfg.get("ip"), deviceCfg.get("mac"), deviceCfg.get("password")))
         else:
             print("[IkonkeOutletPlatform][ERROR]error type" + type)
     
@@ -112,5 +117,9 @@ class K2ProOutlet(IkonkeOutletBase):
 
 class MiniBOutlet(IkonkeOutletBase):
     pass
+
+class MiniWOutlet(IkonkeOutletBase):
+    pass
+
 
 
